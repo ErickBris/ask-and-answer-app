@@ -1,0 +1,279 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Ask and Answer App</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+	</style>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;Ask and Answer App&rdquo; Documentation by &ldquo;Demyanchuk Dmitry&rdquo; v1.1</h3>
+		
+		<hr>
+		
+		<h1 class="center">&ldquo;Ask and Answer App&rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: 03/09/2015<br>
+					By: Demyanchuk Dmitry<br>
+					Email: <a href="mailto:qascript@mail.ru">qascript@mail.ru</a>
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing my Ask and Answer App. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="http://codecanyon.net/user/qascript">here</a> or <a href="http://vk.com/dmitry.demyanchuk" target="_blank">here</a>. Thanks so much!</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ul>
+			<li><a href="#releaseNotes">Release notes</a></li>
+			<li><a href="#update">How to update</a></li>
+		</ul>
+		<ol>
+			<li><a href="#overview">Overview</a></li>
+			<li><a href="#phpInstall">PHP Installation Process</a></li>
+			<li><a href="#androidInstall">Configure QA Script application for Android</a></li>
+			<li><a href="#facebookAuthorization">Configuring authorization via Facebook</a></li>
+		</ol>
+		<ol class="alpha">
+			<li><a href="#phpEngineStructure">PHP Engine structure</a></li>
+			<li><a href="#apiDirectoryStructure">Api directory Structure</a></li>
+			<li><a href="#htmlDirectoryStructure">Html directory Structure</a></li>
+			<li><a href="#publicDirectoryStructure">Public directory Structure</a></li>
+			<li><a href="#sysDirectoryStructure">Sys directory Structure</a></li>
+			<li><a href="#htmlFileStructure">Html file Structure</a></li>
+		</ol>
+		
+		<hr>
+
+		<h3 id="releaseNotes"><strong>Release notes</strong> - <a href="#toc">top</a></h3>
+
+		<div><strong>Version 1.6</strong></div>
+		<div>Added hashtags.</div>
+		<div>Fixed bugs</div>
+		<br>
+		<div><strong>Version 1.5</strong></div>
+		<div>Added support GCM (Google cloud messages). Push notifications about new questions, answers, followers and likes.</div>
+		<div>Fixed bugs</div>
+		<br>
+		<div><strong>Version 1.4</strong></div>
+		<div>Added option to enable/disable AdMob banners (in file Constants.java variable ADMOB)</div>
+		<div>Adding login/signup with Facebook</div>
+		<div>Fixed bugs</div>
+		<br>
+		<div><strong>Version 1.3:</strong></div>
+		<div>Fixed a bug with the server's response.</div>
+		<div>Fixed bug with utf-8 in the database.</div>
+		<br>
+
+		<hr>
+
+		<h3 id="update"><strong>How to update</strong> - <a href="#toc">top</a></h3>
+		<P><b>It is necessary!</b></P>
+		<p>There was a change in the structure of the database. We need to create the database again (to reinstall script) or after replacing the file, enter a web browser (http://you_site.com/update) to correct the database structure.</p>
+		<p>How to connect the GCM to your application and get SENDER_ID and SERVER_API_KEY (google api key) and other is available here <a target="_blank" href="http://ifsoft.co.uk/help/">http://ifsoft.co.uk/help/</a></p>
+		<hr>
+
+		<h3 id="overview"><strong>1) Overview</strong> - <a href="#toc">top</a></h3>
+		<p>This is important, please read:</p>
+
+		<p>error_reporting:
+			<br>
+			Default error_reporting set to E_ALL.
+			<br>
+			To set error_reporting to 0 - edit the file public/index.php
+		</p>
+
+		<p>All user data is cleaned with the following code (functions can be edited in the file: sys/class/class.helper.inc.php):</p>
+		<pre>
+static function clearText($text) {
+
+	$text = trim($text);
+	$text = strip_tags($text);
+	$text = htmlspecialchars($text);
+
+	return $text;
+}
+
+static function clearInt($value) {
+
+	$value = intval($value);
+
+	return $value;
+}
+		</pre>
+		
+		<hr>
+
+		<h3 id="phpInstall"><strong>2) Php Installation Process</strong> - <a href="#toc">top</a></h3>
+		
+		<p>Configure the server part of the QA Script with fast three easy steps!</p>
+
+		<ol>
+			<li>Open and edit /sys/config/db.inc.php (edit the data on the selected image)</li>
+<pre>
+	$B['APP_URL'] = "edit to your domain example: http://yourdomain.com";
+	$C['DB_HOST'] = "localhost or your db host";
+	$C['DB_USER'] = "your db user";
+	$C['DB_PASS'] = "your db password";
+	$C['DB_NAME'] = "your db name";
+</pre>
+			<img src="assets/images/php_install.png" alt="PHP Engine Structure" />
+			<li>Upload the script to the root server.</li>
+			<li>Open in browser: http://your_site.com/install (You create the first user, which will be open full access to the admin panel.)</li>
+		</ol>
+		
+		<p></p>
+		<p>If you correctly follow the three simple steps, then the browser will automatically redirect you to the admin panel!</p>
+		
+		<hr>
+
+		<h3 id="androidInstall"><strong>3) Configure QA Script application for Android</strong> - <a href="#toc">top</a></h3>
+		
+		<p>Application QA Script for Android created with Android Studio.</p>
+		<p>Application Structure QA Script for Android - is a common project structure Android Studio. To get started with the application you need to edit a few constants:</p>
+
+		<ol>
+			<li>Open the project in the editor (preferably in Android Studio). You may need to adjust the Android SDK Location in the Project Structure (Ctrl + Alt + Shift + S).</li>
+			<li>Change API_DOMAIN on your domain (file Constants.java). Also, you can change the values: APP_DESKTOP_SITE, CLIENT_ID, APP_NAME, APP_VERSION, APP_YEAR, APP_COPYRIGHT and SENDER_ID.</li>
+			<img src="assets/images/android_install.png" alt="PHP Engine Structure" />
+			<li>Change banner_ad_unit_id on your AdMob Ad unit ID (file strings.xml).</li>
+			<img src="assets/images/android_install_2.png" alt="PHP Engine Structure" />
+		</ol>
+
+		<p>As you can see here is very simple!</p>
+		
+		<hr>
+
+		<h3 id="facebookAuthorization"><strong>4) Configuring authorization via Facebook</strong> - <a href="#toc">top</a></h3>
+		<p>Go to the link <a target="_blank" href="https://developers.facebook.com/apps">https://developers.facebook.com/apps</a>, to create an application</p>
+		<p>After creating the application, you need to register facebook APP ID in the application for android:
+		<img src="assets/images/android_install_3.png" alt="PHP Engine Structure" />
+		</p>
+		<p>Next, create Key Hashes and to register them in the Facebook application settings. Also do not forget to register in your application settings Google Play Package Name and Class Name
+		<img src="assets/images/facebook_app_hashes.png">
+		</p>
+
+		<p>How to create a Key Hashes can be found in the <a target="blank" href="https://developers.facebook.com/docs/android/getting-started#release-key-hash">official documentation</a> and <a target="_blank" href="http://stackoverflow.com/questions/7506392/how-to-create-android-facebook-key-hash">here</a></p>
+
+		<hr>
+		
+		<h3 id="phpEngineStructure"><strong>A) PHP Engine structure</strong> - <a href="#toc">top</a></h3>
+		<p>The structure of the project consists of four main directories:</p>
+		
+		<img src="assets/images/phpenginestructure.png" alt="PHP Engine Structure" />
+
+		<p>1. Api directory contains methods that are called from the application.</p>
+		<p>2. Html directory includes html files to display in the browser (html files admin panel, etc.).</p>
+		<p>3. Public directory and its subdirectories include these files: js, css, image files.</p>
+		<p>4. Sys directory contains the files needed for work and application settings: php classes, configuration files.</p>
+		
+		<hr>
+
+		<h3 id="apiDirectoryStructure"><strong>B) Api directory Structure</strong> - <a href="#toc">top</a></h3>
+
+		<p>Api directory contains a directory "v1", which is responsible for the current version api. Directory method is the application of the method is called Android.
+		<br>
+		An example of a method call: <b><i>http://your_site.com/api/v1/method/account.edit</i></b>
+		<br>
+		<b>Warning! All methods should only be called via POST</b></p> 
+
+		<img src="assets/images/phpenginestructure_api.png" alt="PHP Engine Structure" />
+
+		<hr>
+		
+		<h3 id="htmlDirectoryStructure"><strong>C) Html directory Structure</strong> - <a href="#toc">top</a></h3>
+		
+		<p>Html directory structure looks like this:</p>
+
+		<img src="assets/images/phpenginestructure_html.png" alt="PHP Engine Structure" />
+		
+		<ol>
+			<li>Admin-panel folder contains html files admin panel.</li>
+			<li>In a folder common: footer, header and top bar for all html files.</li>
+			<li>error.inc.php - html file page 404</li>
+			<li>main.inc.php - html file of the main page</li>
+		</ol>
+		
+		<hr>
+		
+		<h3 id="publicDirectoryStructure"><strong>D) Public directory Structure</strong> - <a href="#toc">top</a></h3>
+		
+		<p>Public directory Structure:</p>
+
+		<img src="assets/images/phpenginestructure_public.png" alt="PHP Engine Structure" />
+		
+		<ol>
+			<li>Folder answer - contains the image files that users can add to their answers.</li>
+			<li>Folder cover - contains the image files that users upload to their profile cover.</li>
+			<li>Folder photo - contains the image files that users upload to their profile picture.</li>
+			<li>Folder css - contains files css (cascading style sheets).</li>
+			<li>Folder js - jQuery, custom scripts, some plugin.</li>
+			<li>Folder img - images, logo image and screenshots</li>
+			<li>Folder tmp - temporary folder: it processed images uploaded by users.</li>
+		</ol>
+
+		<p><b>index.php</b> - This file acts as a control routes and initializes global variables, session..
+			<br>
+			Be very careful when editing this file.
+		</p>
+		
+		<hr>
+		
+		<h3 id="sysDirectoryStructure"><strong>E) Sys directory Structure</strong> - <a href="#toc">top</a></h3>
+		
+		<p>Sys directory is the most important in the script, as the classes are stored in it are responsible for the entire application logic.</p>
+
+		<img src="assets/images/phpenginestructure_sys.png" alt="PHP Engine Structure" />
+		
+		<ol>
+			<li>Folder class - contains php classes that are responsible for all the logic, data storage, file management, etc.</li>
+			<li>Folder config - contains a file db.inc.php, which is used to configure the script.</li>
+			<li>Folder core - contains a file init.inc.php, which initializes all global variables and automatically loads the classes, as well as file initialize.inc.php - which creates a table in the database.</li>
+			<li>Folder lang - en.php file includes string constants for the derivation of words.</li>
+		</ol>
+		
+		<hr>
+
+		<h3 id="htmlFileStructure"><strong>F) Html file Structure</strong> - <a href="#toc">top</a></h3>
+		
+		<p>Familiarize yourself with the structure of a conventional html file:</p>
+
+		<img src="assets/images/htmlstructure.png" alt="PHP Engine Structure" />
+		
+		<p></p>
+		<p>The file structure is very simple and efficient, making it easy to create new html page with the advanced functionality of the script.
+			<br>
+			Result:
+		</p>
+
+		<img src="assets/images/htmlstructure_example.png" alt="PHP Engine Structure" />
+		
+		<hr>
+		
+		<p>Once again, thank you so much for purchasing this application. As I said at the beginning, I'd be glad to help you if you have any questions relating to this theme. No guarantees, but I'll do my best to assist. If you have a more general question relating to the application on CodeCanyon, you might consider visiting the forums and asking your question in the "Item Discussion" section.</p> 
+		
+		<p class="append-bottom alt large"><strong>Demyanchuk Dmitry</strong></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+</html>

@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="uk.co.ifsoft.android.ProfileActivity">
+
+    <item android:id="@+id/action_profile_refresh" android:title="@string/action_refresh"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_profile_edit_photo" android:title="@string/action_edit_profile_photo"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_profile_edit_cover" android:title="@string/action_edit_profile_cover"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_profile_edit" android:title="@string/action_edit_profile"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_profile_copy_link" android:title="@string/action_copy_link"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_profile_open_link" android:title="@string/action_open_link"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_profile_report" android:title="@string/action_profile_report"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_profile_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" />
+</menu>

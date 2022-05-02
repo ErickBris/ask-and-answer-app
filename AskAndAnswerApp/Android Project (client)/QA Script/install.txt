@@ -1,0 +1,10 @@
+Warning!
+Application QA Script for Android created with Android Studio.
+
+1. Open the project in the editor (preferably in Android Studio). You may need to adjust the Android SDK Location in the Project Structure (Ctrl + Alt + Shift + S).
+
+2. Change API_DOMAIN on your domain (file Constants.java). Also, you can change the values: CLIENT_ID, APP_NAME, APP_VERSION, APP_YEAR, APP_COPYRIGHT.
+
+
+This information you can find here:
+http://qascript.com.ua/android-client-setup
